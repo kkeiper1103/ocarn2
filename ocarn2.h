@@ -192,7 +192,7 @@ namespace OCARN2 {
         std::vector<unsigned short> textureMapFar = std::vector<unsigned short>(1024 * 1024);
         std::vector<unsigned char> objectMap = std::vector<unsigned char>(1024 * 1024);
         std::vector<unsigned short> bitflagMap = std::vector<unsigned short>(1024 * 1024);
-        std::vector<unsigned char> lightingMap[3] = {
+        std::vector<std::vector<unsigned char>> lightingMap = {
             std::vector<unsigned char>(1024 * 1024),
             std::vector<unsigned char>(1024 * 1024),
             std::vector<unsigned char>(1024 * 1024)

@@ -79,5 +79,8 @@ int main(int argc, char* argv[]) {
 
     fclose(f);
 
+    // unlike the other load_* methods, the OCARN2::Map is entirely built from vectors,
+    // so there's no cleanup to do after the Map structure goes out of scope
+
     return 0;
 }

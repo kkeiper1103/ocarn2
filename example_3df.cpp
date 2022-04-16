@@ -20,5 +20,8 @@ int main(int argc, char* argv[]) {
         printf("(%d, %d, %d)\n", f.v1, f.v2, f.v3);
     }
 
+    // don't forget to free the resources like I did in my initial commit
+    free_mesh(compass);
+
     return 0;
 }

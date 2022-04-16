@@ -26,5 +26,7 @@ int main(int argc, char* argv[]) {
         printf("%d, %d, %d - %d\n", f.color.r, f.color.g, f.color.b, f.isMortal);
     }
 
+    free_rsc(resources);
+
     return 0;
 }
