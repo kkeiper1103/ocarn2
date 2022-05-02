@@ -204,6 +204,58 @@ namespace OCARN2 {
     };
 
 
+    enum Bitflags {
+        /**
+         * These are for the car and 3df models
+         */
+        SF_DOUBLE_SIDE = 0x0001,
+        SF_DARK_BACK = 0x0002,
+        SF_OPACITY = 0x0004,
+        SF_TRANSPARENT = 0x0008,
+        SF_MORTAL = 0x0010,
+        SF_PHONG = 0x0030,
+        SF_ENV_MAP = 0x0050,
+        SF_NEED_VC = 0x0080,
+        SF_DARK = 0x8000,
+
+        /**
+         * These are used for the flagsMap in the Map data structure
+         */
+        BF_TEXTURE_DIRECTION = 0x0001,
+        BF_B = 0x0002,
+        BF_MODEL_DIRECTION = 0x0004,
+        BF_D = 0x0008,
+        BF_REVERSE = 0x0010,
+        BF_IMPASSABLE = 0x0020,
+        BF_G = 0x0040,
+        BF_WATER = 0x0080,
+        BF_TEXTURE2_DIRECTION = 0x0100,
+        BF_J = 0x0200,
+        BF_K = 0x0400,
+        BF_L = 0x0800,
+        BF_M = 0x1000,
+        BF_N = 0x2000,
+        BF_O = 0x4000,
+        BF_WATER_UNUSED = 0x8000,
+        BF_WATER_ALPHA = 0x8080,
+
+        /**
+         * objectmap flags for map models in the RSC file
+         */
+        OF_PLACE_WATER = 0x0001,
+        OF_PLACE_GROUND = 0x0002,
+        OF_PLACE_USER = 0x0004,
+        OF_CIRCLE = 0x0008,
+        OF_BOUND = 0x0016,
+        OF_NO_BITMAP = 0x0032,
+        OF_NO_LIGHT = 0x0064,
+        OF_DEF_LIGHT = 0x0128,
+        OF_GROUND_LIGHT = 0x0256,
+        OF_NO_SOFT = 0x0512,
+        OF_NO_SOFT2 = 0x1024,
+        OF_ANIMATED = 0x80000000
+    };
+
 
     struct Weapon {
         std::string name;

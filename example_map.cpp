@@ -82,5 +82,24 @@ int main(int argc, char* argv[]) {
     // unlike the other load_* methods, the OCARN2::Map is entirely built from vectors,
     // so there's no cleanup to do after the Map structure goes out of scope
 
+    int tiles = 0;
+    int tilesWithFlippedTexture = 0;
+    for(auto z = 0; z < 1024; z++) {
+        for(auto x = 0; x < 1024; x++) {
+
+            if( map.bitflagMap[z * 1024 + x] & OCARN2::BF_REVERSE ) {
+                tilesWithFlippedTexture++;
+
+                printf("Tex Direction: %d degrees\n", (map.bitflagMap[z * 1024 + x] & 3) * 90);
+            }
+
+            tiles++;
+
+        }
+    }
+
+    std::cout << "Flipped Tiles: " << tilesWithFlippedTexture << std::endl;
+    std::cout << "Total Tiles: " << tiles << std::endl;
+
     return 0;
 }
