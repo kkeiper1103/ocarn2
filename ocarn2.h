@@ -57,7 +57,7 @@ namespace OCARN2 {
         unsigned int kps;
         unsigned int numFrames;
 
-        unsigned short* data;
+        short* data;
     };
 
     //
@@ -65,8 +65,6 @@ namespace OCARN2 {
         char name[32];
         unsigned int length;
         unsigned short* data;
-
-
     };
 
     struct RandomSound {
@@ -492,7 +490,7 @@ OCARN2_DEF OCARN2::Animation ocarn2__load_car_animation(std::fstream& file, unsi
     file.read((char*) &animation.numFrames, 4);
 
     unsigned int size = numVertices * animation.numFrames * 6;
-    animation.data = new unsigned short[size]; // (unsigned short*) malloc(size);
+    animation.data = new short[size]; // (unsigned short*) malloc(size);
     file.read((char*) animation.data, size);
 
     return animation;
@@ -696,7 +694,7 @@ OCARN2_DEF OCARN2::RscModel ocarn2__load_rsc_model(std::fstream &file) {
         file.read((char*) &animation.numFrames, 4);
 
         int size = vc * animation.numFrames * 6;
-        animation.data = new unsigned short[size]; // (unsigned short*) malloc( size );
+        animation.data = new short[size]; // (unsigned short*) malloc( size );
         file.read((char*) animation.data, size);
     }
     return model;

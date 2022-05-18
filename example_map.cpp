@@ -90,11 +90,10 @@ int main(int argc, char* argv[]) {
             if( map.bitflagMap[z * 1024 + x] & OCARN2::BF_REVERSE ) {
                 tilesWithFlippedTexture++;
 
-                printf("Tex Direction: %d degrees\n", (map.bitflagMap[z * 1024 + x] & 3) * 90);
+                // printf("Tex Direction: %d degrees\n", (map.bitflagMap[z * 1024 + x] & 3) * 90);
             }
 
             tiles++;
-
         }
     }
 

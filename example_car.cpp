@@ -12,8 +12,8 @@
 int main(int argc, char* argv[]) {
     OCARN2::Mesh dimorphodon = load_car_file("testdata/DIMOR2.CAR");
 
-    printf("CAR File Contains %d Faces, %d Vertices\n", compass.numFaces, compass.numVertices);
-    printf("Texture in CAR file is %d bytes big\n", compass.textureSize);
+    printf("CAR File Contains %d Faces, %d Vertices\n", dimorphodon.numFaces, dimorphodon.numVertices);
+    printf("Texture in CAR file is %d bytes big\n", dimorphodon.textureSize);
 
     printf("Faces (vert1, vert2, vert3)\n=================\n");
     for(auto& f: dimorphodon.faces) {
