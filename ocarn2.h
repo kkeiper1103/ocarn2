@@ -17,9 +17,11 @@
  * Map load_map_file(const std::string& filename);
  */
 
-
 #pragma once
 
+void test_ocarn2();
+
+#include <cstdint>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -27,18 +29,18 @@
 namespace OCARN2 {
     struct Vertex {
         float x, y, z;
-        short owner;
-        unsigned short hidden;
+        int16_t owner;
+        uint16_t hidden;
     };
 
     struct Face {
-        int v1, v2, v3;
+        int32_t v1, v2, v3;
 
-        int tax, tbx, tcx;
-        int tay, tby, tcy;
+        int32_t tax, tbx, tcx;
+        int32_t tay, tby, tcy;
 
-        unsigned short flags, DMask;
-        int distant, next, group;
+        uint16_t flags, DMask;
+        int32_t distant, next, group;
         char reserved[12];
     };
 
@@ -47,37 +49,37 @@ namespace OCARN2 {
         char name[32];
 
         float x, y, z;
-        short owner;
-        unsigned short hidden;
+        int16_t owner;
+        uint16_t hidden;
     };
 
     //
     struct Animation {
         char name[32];
-        unsigned int kps;
-        unsigned int numFrames;
+        uint32_t kps;
+        uint32_t numFrames;
 
-        short* data;
+        int16_t* data;
     };
 
     //
     struct SoundEffect {
         char name[32];
-        unsigned int length;
-        unsigned short* data;
+        uint32_t length;
+        uint16_t* data;
     };
 
     struct RandomSound {
-        int number, volume, frequency;
-        unsigned short environment, flags;
+        int32_t number, volume, frequency;
+        uint16_t environment, flags;
     };
 
     struct AmbientSound {
         SoundEffect sound;
         RandomSound randomSounds[16];
 
-        int numSoundEffects;
-        int volume, time;
+        int32_t numSoundEffects;
+        int32_t volume, time;
     };
 
     /**
@@ -88,13 +90,13 @@ namespace OCARN2 {
         char name[24] = "Unnamed\0";
         char msc[8];
 
-        unsigned int numVertices;
-        unsigned int numFaces;
-        unsigned int numNodes;
-        unsigned int textureSize;
+        uint32_t numVertices;
+        uint32_t numFaces;
+        uint32_t numNodes;
+        uint32_t textureSize;
 
-        unsigned int numAnimations;
-        unsigned int numSoundEffects;
+        uint32_t numAnimations;
+        uint32_t numSoundEffects;
 
         std::vector<Face> faces;
         std::vector<Vertex> vertices;
@@ -104,15 +106,15 @@ namespace OCARN2 {
 
         std::vector<int> soundMap = std::vector<int>(64);
 
-        unsigned short* textureData;
+        uint16_t* textureData;
     };
 
     struct Color {
-        int r, g, b, a;
+        int32_t r, g, b, a;
     };
 
     struct Fog {
-        int rgb;
+        int32_t rgb;
         Color color;
 
         float y;
@@ -121,54 +123,54 @@ namespace OCARN2 {
     };
 
     struct Water {
-        int tIndex, wLevel;
+        int32_t tIndex, wLevel;
         float transparency;
-        int rgb;
+        int32_t rgb;
 
         Color color;
     };
 
     struct Texture {
-        unsigned int size;
-        unsigned short* data;
+        uint32_t size;
+        uint16_t* data;
     };
 
     struct RscModel {
-        int radius;
-        int yLo, yHi;
-        int lineLength;
-        int lightIntensity;
-        int circleRadius;
-        int circleIntensity;
+        int32_t radius;
+        int32_t yLo, yHi;
+        int32_t lineLength;
+        int32_t lightIntensity;
+        int32_t circleRadius;
+        int32_t circleIntensity;
 
-        int flags;
+        int32_t flags;
 
-        int grRadius;
-        int defLight;
-        int lastAnimationTime;
+        int32_t grRadius;
+        int32_t defLight;
+        int32_t lastAnimationTime;
         float boundingRadius;
 
         char reserved[16];
 
         Mesh mesh;
 
-        int textureSize = 128 * 128 * 2;
-        unsigned short* textureData;
+        int32_t textureSize = 128 * 128 * 2;
+        uint16_t* textureData;
     };
 
     /**
      * contains fields for all the data within a .rsc file
      */
     struct Rsc {
-        unsigned int numTextures;
-        unsigned int numModels;
-        unsigned int numFogs;
-        unsigned int numSoundEffects;
-        unsigned int numAmbientSounds;
-        unsigned int numWaters;
+        uint32_t numTextures;
+        uint32_t numModels;
+        uint32_t numFogs;
+        uint32_t numSoundEffects;
+        uint32_t numAmbientSounds;
+        uint32_t numWaters;
 
-        unsigned int fadeRgb[3][3];
-        unsigned int transRgb[3][3];
+        uint32_t fadeRgb[3][3];
+        uint32_t transRgb[3][3];
 
         std::vector<Texture> textures;
         std::vector<RscModel> models;
@@ -177,7 +179,7 @@ namespace OCARN2 {
         std::vector<AmbientSound> ambientSounds;
         std::vector<Water> waters;
 
-        unsigned short sky[3][256 * 256];
+        uint16_t sky[3][256 * 256];
         unsigned char skyMap[128 * 128];
     };
 
@@ -186,14 +188,14 @@ namespace OCARN2 {
      */
     struct Map {
         std::vector<unsigned char> heightMap = std::vector<unsigned char>(1024 * 1024);
-        std::vector<unsigned short> textureMap = std::vector<unsigned short>(1024 * 1024);
-        std::vector<unsigned short> textureMapFar = std::vector<unsigned short>(1024 * 1024);
+        std::vector<uint16_t> textureMap = std::vector<uint16_t>(1024 * 1024);
+        std::vector<uint16_t> textureMapFar = std::vector<uint16_t>(1024 * 1024);
         std::vector<unsigned char> objectMap = std::vector<unsigned char>(1024 * 1024);
-        std::vector<unsigned short> bitflagMap = std::vector<unsigned short>(1024 * 1024);
+        std::vector<uint16_t> bitflagMap = std::vector<uint16_t>(1024 * 1024);
         std::vector<std::vector<unsigned char>> lightingMap = {
-            std::vector<unsigned char>(1024 * 1024),
-            std::vector<unsigned char>(1024 * 1024),
-            std::vector<unsigned char>(1024 * 1024)
+                std::vector<unsigned char>(1024 * 1024),
+                std::vector<unsigned char>(1024 * 1024),
+                std::vector<unsigned char>(1024 * 1024)
         };
         std::vector<unsigned char> waterMap = std::vector<unsigned char>(1024 * 1024);
         std::vector<unsigned char> objectHeightMap = std::vector<unsigned char>(1024 * 1024);
@@ -260,37 +262,37 @@ namespace OCARN2 {
         std::string file;
         std::string pic;
 
-        int power;
+        int32_t power;
         float precision;
         float loudness;
         float rate;
-        int shots;
+        int32_t shots;
     };
 
     struct Dino {
         std::string name;
         std::string file;
 
-        int ai = -1;
+        int32_t ai = -1;
         float mass = -1.0f;
         float length = -1.0f;
-        int radius = -1;
-        int health = -1;
-        int baseScore = -1;
+        int32_t radius = -1;
+        int32_t health = -1;
+        int32_t baseScore = -1;
 
         float smell = -1.0f;
         float hearing = -1.0f;
         float sight = -1.0f;
 
-        int scale0 = -1;
-        int scaleA = -1;
+        int32_t scale0 = -1;
+        int32_t scaleA = -1;
 
-        int shipDelta = -1;
+        int32_t shipDelta = -1;
         bool dangerous = false;
     };
 
     struct Prices {
-        int baseCost = 100;
+        int32_t baseCost = 100;
 
         std::vector<int> areas;
         std::vector<int> dinos;
@@ -468,7 +470,7 @@ OCARN2_DEF OCARN2::Mesh load_3df_file(const std::string& filename) {
         }
 
         // load texture
-        mesh.textureData = new unsigned short[mesh.textureSize];
+        mesh.textureData = new uint16_t[mesh.textureSize];
         file.read((char*) mesh.textureData, mesh.textureSize);
     });
 
@@ -482,15 +484,15 @@ OCARN2_DEF OCARN2::Mesh load_3df_file(const std::string& filename) {
  * @param numVertices Number of Vertices in the Mesh. maybe pass mesh instead?
  * @return
  */
-OCARN2_DEF OCARN2::Animation ocarn2__load_car_animation(std::fstream& file, unsigned const int numVertices) {
+OCARN2_DEF OCARN2::Animation ocarn2__load_car_animation(std::fstream& file, uint32_t numVertices) {
     OCARN2::Animation animation {};
 
     file.read(animation.name, 32);
     file.read((char*) &animation.kps, 4);
     file.read((char*) &animation.numFrames, 4);
 
-    unsigned int size = numVertices * animation.numFrames * 6;
-    animation.data = new short[size]; // (unsigned short*) malloc(size);
+    uint32_t size = numVertices * animation.numFrames * 6;
+    animation.data = new int16_t[size]; // (uint16_t*) malloc(size);
     file.read((char*) animation.data, size);
 
     return animation;
@@ -508,7 +510,7 @@ OCARN2_DEF OCARN2::SoundEffect ocarn2__load_car_sfx(std::fstream& file) {
     file.read(effect.name, 32);
     file.read((char*) &effect.length, 4);
 
-    effect.data = new unsigned short[effect.length]; // (unsigned short*) malloc(effect.length);
+    effect.data = new uint16_t[effect.length]; // (uint16_t*) malloc(effect.length);
     file.read((char*) effect.data, effect.length);
 
     return effect;
@@ -545,7 +547,7 @@ OCARN2_DEF OCARN2::Mesh load_car_file(const std::string& filename) {
         }
 
         // load texture
-        mesh.textureData = new unsigned short[mesh.textureSize]; // (unsigned short*) malloc(mesh.textureSize);
+        mesh.textureData = new uint16_t[mesh.textureSize]; // (uint16_t*) malloc(mesh.textureSize);
         file.read((char*) mesh.textureData, mesh.textureSize);
 
         // read animations
@@ -577,7 +579,7 @@ OCARN2_DEF OCARN2::Texture ocarn2__load_rsc_texture(std::fstream& file) {
     OCARN2::Texture texture {};
 
     texture.size = 128 * 128 * 2;
-    texture.data = new unsigned short[texture.size]; // (unsigned short*) malloc(texture.size);
+    texture.data = new uint16_t[texture.size]; // (uint16_t*) malloc(texture.size);
     file.read((char*) texture.data, texture.size);
 
     return texture;
@@ -613,7 +615,7 @@ OCARN2_DEF OCARN2::Mesh ocarn2__load_rsc_mesh(std::fstream& file) {
     }
 
     // load texture
-    mesh.textureData = new unsigned short[mesh.textureSize]; // (unsigned short*) malloc(mesh.textureSize);
+    mesh.textureData = new uint16_t[mesh.textureSize]; // (uint16_t*) malloc(mesh.textureSize);
     file.read((char*) mesh.textureData, mesh.textureSize);
 
     return mesh;
@@ -671,7 +673,7 @@ OCARN2_DEF OCARN2::RscModel ocarn2__load_rsc_model(std::fstream &file) {
     }
 
     // load texture
-    mesh.textureData = new unsigned short[mesh.textureSize];
+    mesh.textureData = new uint16_t[mesh.textureSize];
     file.read((char*) mesh.textureData, mesh.textureSize);
 
     model.mesh = mesh;
@@ -679,22 +681,22 @@ OCARN2_DEF OCARN2::RscModel ocarn2__load_rsc_model(std::fstream &file) {
     // done reading mesh
     // read texture?
 
-    model.textureData = new unsigned short[model.textureSize];
+    model.textureData = new uint16_t[model.textureSize];
     file.read((char*) model.textureData, model.textureSize);
 
     // end texture
     // read animations, if any
     if(model.flags & 0x80000000) {
         OCARN2::Animation animation {};
-        int vc;
+        int32_t vc;
 
         file.read((char*) &vc, 4);
         file.read((char*) &vc, 4);
         file.read((char*) &animation.kps, 4);
         file.read((char*) &animation.numFrames, 4);
 
-        int size = vc * animation.numFrames * 6;
-        animation.data = new short[size]; // (unsigned short*) malloc( size );
+        int32_t size = vc * animation.numFrames * 6;
+        animation.data = new int16_t[size]; // (uint16_t*) malloc( size );
         file.read((char*) animation.data, size);
     }
     return model;
@@ -761,7 +763,7 @@ OCARN2_DEF OCARN2::Rsc load_rsc_file(const std::string& filename) {
             OCARN2::SoundEffect sound {};
 
             file.read((char*) &sound.length, 4);
-            sound.data = new unsigned short[sound.length];
+            sound.data = new uint16_t[sound.length];
             file.read((char*) sound.data, sound.length);
 
             rsc.soundEffects.emplace_back(sound);
@@ -774,7 +776,7 @@ OCARN2_DEF OCARN2::Rsc load_rsc_file(const std::string& filename) {
 
             file.read((char*) &ambient.sound.length, 4);
 
-            ambient.sound.data = new unsigned short[ambient.sound.length];
+            ambient.sound.data = new uint16_t[ambient.sound.length];
             file.read((char*) ambient.sound.data, ambient.sound.length);
 
             file.read((char*) ambient.randomSounds, sizeof(ambient.randomSounds));
@@ -839,25 +841,27 @@ OCARN2_DEF OCARN2::Map load_map_file(const std::string& filename) {
 
 
 
-// trim from start
-static inline std::string &ocarn2__ltrim(std::string &s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
-                                    std::not1(std::ptr_fun<int, int>(std::isspace))));
+const char* ws = " \t\n\r\f\v";
+
+// trim from end of string (right)
+static inline std::string& ocarn2__rtrim(std::string& s, const char* t = ws)
+{
+    s.erase(s.find_last_not_of(t) + 1);
     return s;
 }
 
-// trim from end
-static inline std::string &ocarn2__rtrim(std::string &s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(),
-                         std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+// trim from beginning of string (left)
+static inline std::string& ocarn2__ltrim(std::string& s, const char* t = ws)
+{
+    s.erase(0, s.find_first_not_of(t));
     return s;
 }
 
-// trim from both ends
-static inline std::string &ocarn2__trim(std::string &s) {
-    return ocarn2__ltrim(ocarn2__rtrim(s));
+// trim from both ends of string (right then left)
+static inline std::string& ocarn2__trim(std::string& s, const char* t = ws)
+{
+    return ocarn2__ltrim(ocarn2__rtrim(s, t), t);
 }
-
 
 
 OCARN2_DEF OCARN2::Weapon ocarn2__load_weapon(std::fstream& file, std::string& line) {
@@ -925,7 +929,9 @@ OCARN2_DEF OCARN2::Dino ocarn2__load_character(std::fstream& file, std::string& 
 
         // convert TRUE -> true for comparison
         if(key == "danger") {
-            std::transform(value.begin(), value.end(), value.begin(), std::ptr_fun<int,int>(std::tolower));
+            std::transform(value.begin(), value.end(), value.begin(), [](unsigned char c) -> char {
+                return std::tolower(c);
+            });
 
             character.dangerous = (value == "true");
         };
