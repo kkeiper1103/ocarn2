@@ -19,8 +19,6 @@
 
 #pragma once
 
-void test_ocarn2();
-
 #include <cstdint>
 #include <iostream>
 #include <string>
