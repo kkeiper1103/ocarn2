@@ -11,10 +11,10 @@
  *
  * main methods are
  *
- * Mesh load_3df_file(const char* filename);
- * Mesh load_car_file(const char* filename);
- * Rsc load_rsc_file(const char* filename);
- * Map load_map_file(const char* filename);
+ * Mesh load_3df_file(const std::string& filename);
+ * Mesh load_car_file(const std::string& filename);
+ * Rsc load_rsc_file(const std::string& filename);
+ * Map load_map_file(const std::string& filename);
  */
 
 
@@ -316,11 +316,11 @@ namespace OCARN2 {
 #endif
 
 
-OCARN2_DEF OCARN2::Mesh load_3df_file(const char* filename);
-OCARN2_DEF OCARN2::Mesh load_car_file(const char* filename);
-OCARN2_DEF OCARN2::Rsc load_rsc_file(const char* filename);
-OCARN2_DEF OCARN2::Map load_map_file(const char* filename);
-OCARN2_DEF OCARN2::ResTxt load_res_txt_file(const char* filename);
+OCARN2_DEF OCARN2::Mesh load_3df_file(const std::string& filename);
+OCARN2_DEF OCARN2::Mesh load_car_file(const std::string& filename);
+OCARN2_DEF OCARN2::Rsc load_rsc_file(const std::string& filename);
+OCARN2_DEF OCARN2::Map load_map_file(const std::string& filename);
+OCARN2_DEF OCARN2::ResTxt load_res_txt_file(const std::string& filename);
 
 OCARN2_DEF void free_mesh(OCARN2::Mesh& mesh);
 OCARN2_DEF void free_rsc(OCARN2::Rsc& resources);
@@ -343,7 +343,7 @@ OCARN2_DEF void free_rsc(OCARN2::Rsc& resources);
  * @param filename
  * @param callback
  */
-OCARN2_DEF void ocarn2__openFile(const char* filename, const std::function<void(std::fstream&)>& callback) {
+OCARN2_DEF void ocarn2__openFile(const std::string& filename, const std::function<void(std::fstream&)>& callback) {
     std::fstream file(filename, std::ios::in | std::ios::binary);
     if(file.is_open()) {
 
@@ -440,7 +440,7 @@ OCARN2_DEF OCARN2::Face ocarn2__load_3df_face(std::fstream& in) {
  * @param filename
  * @return
  */
-OCARN2_DEF OCARN2::Mesh load_3df_file(const char* filename) {
+OCARN2_DEF OCARN2::Mesh load_3df_file(const std::string& filename) {
     OCARN2::Mesh mesh {};
 
     /**
@@ -521,7 +521,7 @@ OCARN2_DEF OCARN2::SoundEffect ocarn2__load_car_sfx(std::fstream& file) {
  * @param filename
  * @return
  */
-OCARN2_DEF OCARN2::Mesh load_car_file(const char* filename) {
+OCARN2_DEF OCARN2::Mesh load_car_file(const std::string& filename) {
     OCARN2::Mesh mesh;
 
     ocarn2__openFile(filename, [&](std::fstream& file) {
@@ -706,7 +706,7 @@ OCARN2_DEF OCARN2::RscModel ocarn2__load_rsc_model(std::fstream &file) {
  * @param filename
  * @return
  */
-OCARN2_DEF OCARN2::Rsc load_rsc_file(const char* filename) {
+OCARN2_DEF OCARN2::Rsc load_rsc_file(const std::string& filename) {
     OCARN2::Rsc rsc;
 
     ocarn2__openFile(filename, [&](std::fstream& file) {
@@ -816,7 +816,7 @@ OCARN2_DEF OCARN2::Rsc load_rsc_file(const char* filename) {
  * @param filename
  * @return
  */
-OCARN2_DEF OCARN2::Map load_map_file(const char* filename) {
+OCARN2_DEF OCARN2::Map load_map_file(const std::string& filename) {
     OCARN2::Map map {};
 
     ocarn2__openFile(filename, [&](std::fstream& file) {
@@ -950,7 +950,7 @@ OCARN2_DEF OCARN2::Dino ocarn2__load_character(std::fstream& file, std::string& 
  * @param filename
  * @return
  */
-OCARN2_DEF OCARN2::ResTxt load_res_txt_file(const char* filename) {
+OCARN2_DEF OCARN2::ResTxt load_res_txt_file(const std::string& filename) {
     OCARN2::ResTxt resources;
 
     ocarn2__openFile(filename, [&](std::fstream& file) {
